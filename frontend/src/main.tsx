@@ -4,9 +4,19 @@ import { createRoot } from 'react-dom/client'
 import './assets/styles/bootstrap.custom.css';
 import './assets/styles/index.css';
 import App from './App.tsx'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router';
+import { Home as HomePage } from './pages/Home.tsx';
+
+const router = createBrowserRouter(
+	createRoutesFromElements(
+		<Route path='/' element={<App />}>
+			<Route index={true} path='/' element={<HomePage />} />
+		</Route>,
+	)
+);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </StrictMode>,
 )
