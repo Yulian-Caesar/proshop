@@ -1,23 +1,8 @@
 import express from "express"
+import { getProductById, getProducts } from "../controllers/productController.js"
 const router = express.Router()
-import asyncHandler from "../middleware/asyncHandler.js";
-import Product from "../models/productModel.js"
 
-router.get('/', asyncHandler(async(req, res) => {
-	const products = await Product.find({})
-	res.json(products);
-}))
-
-router.get('/:productId', asyncHandler(async(req, res) => {
-	const product = await Product.findById(req.params.productId)
-
-	if(product) {
-		 res.json(product);
-	} else {
-		res.status(404)
-		throw new Error('Resource not found')
-	}
-
-}))
+router.route('/').get(getProducts)
+router.route('/:productId').get(getProductById)
 
 export default router;
