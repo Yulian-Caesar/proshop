@@ -4,13 +4,15 @@ import { ProductType } from "../components/Product/Product.type"
 //import { useEffect, useState } from "react"
 //import axios from "axios"
 import { useGetProductsQuery } from "../slices/productsApiSlice"
+import Loader from "../components/Loader/Loader"
+import { Message } from "../components/Message/Message"
 
 export const Home = () => {
-	const { data: products, isLoading, error } = useGetProductsQuery();
+	const { data: products, isLoading, error } = useGetProductsQuery('222');
 
-	if(isLoading) return <h1>Loading...</h1>
+	if (isLoading) return <Loader />
 	//if(error) return <div>{{error?.data?.message || error.error}}</div>
-	if(error) return <div>{error?.data?.message || error.error}</div>
+	if(error) return <Message variant="danger">{error?.data?.message || error.error}</Message>
 	return (
 		<>
 			<h1>Latest Products</h1>

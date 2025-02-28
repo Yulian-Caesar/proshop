@@ -1,32 +1,18 @@
 import { Link, useParams } from "react-router"
 import { Rating } from "../components/Rating/Rating";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { ProductType } from "../components/Product/Product.type";
-import axios from "axios";
+import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
+import Loader from "../components/Loader/Loader";
+import { Message } from "../components/Message/Message";
 
 
 export const ProductDetail = () => {
-	const [product, setProduct] = useState<ProductType | null>(null)
-	const [isLoading, setLoading] = useState(true)
-	const {productId} = useParams();
-	//const product = products.find(product => product._id === productId)
+	const { productId } = useParams();
+	const { data: product, isLoading, error } = useGetProductDetailsQuery(productId)
 
-	useEffect(() => {
-		const fetchProduct = async() => {
-			try {
-				const {data} = await axios.get(`/api/products/${productId}`)
-				setProduct(data)
-			} catch (error) {
-				console.log(error)
-			}
-			setLoading(false)
-		}
-		fetchProduct()
-	}, [productId])
-
-	if (isLoading) return <h2>Loadign...</h2>
-	if (!product) return <h2>Product not found</h2>
+	if (isLoading) return <Loader />
+	if(error) return <Message variant="danger">{error?.data?.message || error.error}</Message>
+	if(!product) return <div>Product not found</div>
 
 	return (
 		<>
