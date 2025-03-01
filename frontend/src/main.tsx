@@ -9,12 +9,14 @@ import App from './App.tsx'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router';
 import { Home as HomePage } from './pages/Home.tsx';
 import { ProductDetail as ProductDetailPage } from './pages/ProductDetail.tsx';
+import { Cart as CartPage } from './pages/Cart.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<App />}>
 			<Route index={true} path='/' element={<HomePage />} />
 			<Route path='/product/:productId' element={<ProductDetailPage />} />
+			<Route path='/cart' element={<CartPage />} />
 		</Route>,
 	)
 );
