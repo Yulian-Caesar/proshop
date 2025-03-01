@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router"
 import { RootState } from "../store";
 import { Button, Card, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
 import { Message } from "../components/Message/Message";
-import { addToCart } from "../slices/cartSlice";
+import { addToCart, removeFromCart } from "../slices/cartSlice";
 import { ProductType } from "../components/Product/Product.type";
 
 export const Cart = () => {
@@ -16,6 +16,14 @@ export const Cart = () => {
 
 	const addToCartHandler = (product: ProductType, qty: number) => {
 		dispatch(addToCart({...product, qty}))
+	}
+
+	const removeFromCartHandler = (id: number) => {
+		dispatch(removeFromCart(id))
+	}
+
+	const checkOutHandler = () => {
+		navigate('/login?redirect=/shipping')
 	}
 
 	return (
@@ -48,7 +56,7 @@ export const Cart = () => {
 										</Form.Control>
 									</Col>
 									<Col md={2}>
-										<Button type="button" variant="light">
+										<Button type="button" variant="light" onClick={() => removeFromCartHandler(item._id)}>
 											<FaTrash />
 										</Button>
 									</Col>
@@ -70,6 +78,7 @@ export const Cart = () => {
 								type="button" 
 								className="btn-block" 
 								disabled={cartItems.length === 0}
+								onClick={checkOutHandler}
 							>
 								Proceed To Checkout
 							</Button>
