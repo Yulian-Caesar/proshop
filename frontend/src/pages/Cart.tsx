@@ -23,7 +23,7 @@ export const Cart = () => {
 	}
 
 	const checkOutHandler = () => {
-		navigate('/login?redirect=/shipping')
+		navigate('/auth?redirect=/shipping')
 	}
 
 	return (

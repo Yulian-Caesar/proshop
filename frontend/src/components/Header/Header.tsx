@@ -27,7 +27,7 @@ export const Header = () => {
 									</Badge>
 								)}
 							</Link>
-							<Link to='/login' className='nav-link'><FaUser /> Sign In</Link>
+							<Link to='/auth' className='nav-link'><FaUser /> Sign In</Link>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
