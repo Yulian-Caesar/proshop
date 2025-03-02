@@ -42,6 +42,7 @@ export const Shipping = () => {
 						placeholder="Enter Address"
 						value={address}
 						onChange={(e) => setAddress(e.target.value)}
+						required
 					/>
 				</Form.Group>
 				<Form.Group controlId="city" className="my-2">
@@ -51,6 +52,7 @@ export const Shipping = () => {
 						placeholder="Enter City"
 						value={city}
 						onChange={(e) => setCity(e.target.value)}
+						required
 					/>
 				</Form.Group>
 				<Form.Group controlId="postalCode" className="my-2">
@@ -60,6 +62,7 @@ export const Shipping = () => {
 						placeholder="Enter Postal Code"
 						value={postalCode}
 						onChange={(e) => setPostalCode(e.target.value)}
+						required
 					/>
 				</Form.Group>
 				<Form.Group controlId="country" className="my-2">
@@ -69,6 +72,7 @@ export const Shipping = () => {
 						placeholder="Enter Country"
 						value={country}
 						onChange={(e) => setCountry(e.target.value)}
+						required
 					/>
 				</Form.Group>
 
