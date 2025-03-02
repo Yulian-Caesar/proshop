@@ -10,6 +10,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import { Home as HomePage } from './pages/Home.tsx';
 import { ProductDetail as ProductDetailPage } from './pages/ProductDetail.tsx';
 import { Cart as CartPage } from './pages/Cart.tsx';
+import { Login as LoginPage } from './pages/Login.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
 			<Route index={true} path='/' element={<HomePage />} />
 			<Route path='/product/:productId' element={<ProductDetailPage />} />
 			<Route path='/cart' element={<CartPage />} />
+			<Route path='/auth' element={<LoginPage />} />
 		</Route>,
 	)
 );
