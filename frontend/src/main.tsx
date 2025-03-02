@@ -13,6 +13,7 @@ import { Cart as CartPage } from './pages/Cart.tsx';
 import { Login as LoginPage } from './pages/Login.tsx';
 import { Register as RegisterPage } from './pages/Register.tsx';
 import { Shipping as ShippingPage } from './pages/Shipping.tsx';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -22,7 +23,10 @@ const router = createBrowserRouter(
 			<Route path='/cart' element={<CartPage />} />
 			<Route path='/auth' element={<LoginPage />} />
 			<Route path='/register' element={<RegisterPage />} />
-			<Route path='/shipping' element={<ShippingPage />} />
+
+			<Route path='' element={<PrivateRoute />}>
+				<Route path='/shipping' element={<ShippingPage />} />
+			</Route>
 		</Route>,
 	)
 );
