@@ -1,16 +1,28 @@
 import {Navbar, Nav, Container, Badge, NavDropdown} from 'react-bootstrap'
 import { FaShoppingCart, FaUser } from 'react-icons/fa'
 import logo from '../../assets/logo.png'
-import { Link } from 'react-router'
-import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store';
+import { logout } from '../../slices/authSlice'
+import { useLogoutMutation } from '../../slices/usersApiSlice'
 
 export const Header = () => {
 	const { cartItems } = useSelector((state: RootState) => state.cart)
 	const { userInfo } = useSelector((state: RootState) => state.auth)
+	const [logoutApiCall] = useLogoutMutation()
 
-	const logoutHandler = () => {
-		console.log('logout')
+	const dispatch = useDispatch();
+	const navigate = useNavigate()
+
+	const logoutHandler = async() => {
+		try {
+			await logoutApiCall().unwrap()
+			dispatch(logout())
+			navigate('/auth')
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	return (
