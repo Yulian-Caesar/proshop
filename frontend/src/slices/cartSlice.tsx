@@ -14,6 +14,7 @@ export type CartStateType = {
 		postalCode: string,
 		country: string,
 	};
+	paymentMethod: string;
 	itemsPrice: number;
 	shippingPrice: number;
 	taxPrice: number;
@@ -43,7 +44,6 @@ const cartSlice = createSlice({
 	reducers: {
 		addToCart: (state, action) => {
 			const item = action.payload;
-
 			const existItem = state.cartItems.find(x => x._id === item._id)
 
 			if(existItem) {
@@ -57,17 +57,19 @@ const cartSlice = createSlice({
 		},
 		removeFromCart: (state, action) => {
 			state.cartItems = state.cartItems.filter(item => item._id !== action.payload)
-
 			return updateCart(state)
 		},
 		saveShippingAddress: (state, action) => {
 			state.shippingAddress = action.payload;
-
+			return updateCart(state)
+		},
+		savePaymentMethod: (state, action) => {
+			state.paymentMethod = action.payload;
 			return updateCart(state)
 		}
 	}
 })
 
-export const {addToCart, removeFromCart, saveShippingAddress} = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod } = cartSlice.actions;
 
 export default cartSlice.reducer;
