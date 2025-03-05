@@ -2,10 +2,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../store"
 import { useProfileMutation } from "../slices/usersApiSlice"
 import { useEffect, useState } from "react"
-import { Button, Col, Form, Row } from "react-bootstrap"
+import { Button, Col, Form, Row, Table } from "react-bootstrap"
 import Loader from "../components/Loader/Loader"
 import { toast } from "react-toastify"
 import { setCredentials } from "../slices/authSlice"
+import { useGetMyOrdersQuery } from "../slices/ordersApiSlice"
+import { Message } from "../components/Message/Message"
+import { FaTimes } from "react-icons/fa"
+import { Link } from "react-router"
 
 export const Profile = () => {
 	const [name, setName] = useState('')
@@ -16,6 +20,7 @@ export const Profile = () => {
 	const dispatch = useDispatch()
 
 	const [updateProfile, { isLoading: loadingUpdateProfile }] = useProfileMutation()
+	const { data: orders, isLoading: loadingOrders, error: errorOrders } = useGetMyOrdersQuery();
 
 	const submitHandler = async(e) => {
 		e.preventDefault()
@@ -30,6 +35,7 @@ export const Profile = () => {
 			toast.error(err?.data?.message || err?.error)
 		}
 	}
+
 
 	useEffect(() => {
 		if(userInfo) {
@@ -86,7 +92,53 @@ export const Profile = () => {
 					{ loadingUpdateProfile && <Loader />}
 				</Form>
 			</Col>
-			<Col md={9}>Column</Col>
+			<Col md={9}>
+				<h2>My Orders</h2>
+				{loadingOrders ? <Loader /> : errorOrders ? (
+					<Message variant="danger">{errorOrders?.data?.message || errorOrders.error || 'Something wrong'}</Message>
+				) : (
+					<Table striped hover responsive  className="table-sm">
+						<thead>
+							<tr>
+								<td>ID</td>
+								<td>DATE</td>
+								<td>TOTAL</td>
+								<td>PAID</td>
+								<td>DELIVERED</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+							{orders.map((order) => (
+								<tr key={order._id}>
+									<td>{order._id}</td>
+									<td>{order.createdAt.substring(0, 10)}</td>
+									<td>${order.totalPrice}</td>
+									<td>
+										{ order.isPaid ? (
+											order.paidAt.substring(0, 10)
+										) : (
+											<FaTimes style={{color: 'red'}} />
+										)}
+									</td>
+									<td>
+										{ order.isDelivered ? (
+											order.deliveredAt.substring(0, 10)
+										) : (
+											<FaTimes style={{color: 'red'}} />
+										)}
+									</td>
+									<td>
+										<Link to={`/order/${order._id}`}>
+											<Button className="btn-sm" variant="light">Details</Button>
+										</Link>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
+				)}
+			</Col>
 		</Row>
 	)
 }
