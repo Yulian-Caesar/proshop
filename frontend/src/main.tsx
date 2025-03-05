@@ -19,6 +19,8 @@ import { Payment as PaymentPage } from './pages/Payment.tsx';
 import { PlaceOrder as  PlaceOrderPage } from './pages/PlaceOrder.tsx';
 import { Order as OrderPage } from './pages/Order.tsx';
 import { Profile as ProfilePage } from './pages/Profile.tsx'
+import { AdminRoute } from './components/AdminRoute/AdminRoute.tsx'
+import { OrderList as OrderListPage } from './pages/admin/OrderList.tsx'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -35,6 +37,10 @@ const router = createBrowserRouter(
 				<Route path='/placeorder' element={<PlaceOrderPage />} />
 				<Route path='/order/:orderId' element={<OrderPage />} />
 				<Route path='/profile' element={<ProfilePage />} />
+			</Route>
+
+			<Route path='' element={<AdminRoute />}>
+				<Route path='/admin/orderlist' element={<OrderListPage />} />
 			</Route>
 		</Route>,
 	)

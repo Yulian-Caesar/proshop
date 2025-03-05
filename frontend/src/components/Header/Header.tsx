@@ -55,7 +55,20 @@ export const Header = () => {
 								</NavDropdown>
 							) : (
 								<Link to='/auth' className='nav-link'><FaUser /> Sign In</Link>
-							)}							
+							)}
+							{ userInfo && userInfo.isAdmin && (
+								<NavDropdown title="Admin" id='adminmenu'>
+									<NavDropdown.Item>
+										<Link to='/admin/productlist' style={{color: 'inherit', textDecoration: 'none'}}>Product</Link>
+									</NavDropdown.Item>
+									<NavDropdown.Item>
+										<Link to='/admin/userlist' style={{color: 'inherit', textDecoration: 'none'}}>Users</Link>
+									</NavDropdown.Item>
+									<NavDropdown.Item>
+										<Link to='/admin/orderlist' style={{color: 'inherit', textDecoration: 'none'}}>Orders</Link>
+									</NavDropdown.Item>
+								</NavDropdown>
+							)}						
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
