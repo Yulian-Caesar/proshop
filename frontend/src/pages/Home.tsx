@@ -1,14 +1,11 @@
 import { Col, Row } from "react-bootstrap"
 import { Product } from "../components/Product/Product"
-import { ProductType } from "../components/Product/Product.type"
-//import { useEffect, useState } from "react"
-//import axios from "axios"
 import { useGetProductsQuery } from "../slices/productsApiSlice"
 import Loader from "../components/Loader/Loader"
 import { Message } from "../components/Message/Message"
 
 export const Home = () => {
-	const { data: products, isLoading, error } = useGetProductsQuery('222');
+	const { data: products, isLoading, error } = useGetProductsQuery();
 
 	if (isLoading) return <Loader />
 	//if(error) return <div>{{error?.data?.message || error.error}}</div>
