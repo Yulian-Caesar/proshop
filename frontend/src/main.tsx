@@ -22,6 +22,7 @@ import { Profile as ProfilePage } from './pages/Profile.tsx'
 import { AdminRoute } from './components/AdminRoute/AdminRoute.tsx'
 import { OrderList as OrderListPage } from './pages/admin/OrderList.tsx'
 import { ProductList as ProductListPage } from './pages/admin/Productlist.tsx'
+import { ProductEdit as ProductEditPage } from './pages/admin/ProductEdit.tsx'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -43,6 +44,7 @@ const router = createBrowserRouter(
 			<Route path='' element={<AdminRoute />}>
 				<Route path='/admin/orderlist' element={<OrderListPage />} />
 				<Route path='/admin/productlist' element={<ProductListPage />} />
+				<Route path='/admin/product/:productId/edit' element={<ProductEditPage />} />
 			</Route>
 		</Route>,
 	)
