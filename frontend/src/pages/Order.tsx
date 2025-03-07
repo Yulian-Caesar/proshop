@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router"
-import { useGetOrderDetailsQuery, useGetPayPalClientIdQuery, usePayOrderMutation } from "../slices/ordersApiSlice";
+import { useDeliverOrderMutation, useGetOrderDetailsQuery, useGetPayPalClientIdQuery, usePayOrderMutation } from "../slices/ordersApiSlice";
 import Loader from "../components/Loader/Loader";
 import { Message } from "../components/Message/Message";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
@@ -15,6 +15,7 @@ export const Order = () => {
 
 	const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId);
 	const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+	const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
 	const [ { isPending }, paypalDispatch] = usePayPalScriptReducer();
 	const { data: paypal, isLoading: loadingPaypal, error: errorPaypal} = useGetPayPalClientIdQuery()
 	const { userInfo } = useSelector((state: RootState) => state.auth);
@@ -70,6 +71,16 @@ export const Order = () => {
 				}
 			]
 		}).then((orderId) => orderId)
+	}
+
+	const deliverOrderHandler = async() => {
+		try {
+			await deliverOrder({orderId})
+			refetch()
+			toast.success("Order delivered")
+		} catch (err) {
+			toast.error(err?.data?.message || err?.message)
+		}
 	}
 
 	if(isLoading) return <Loader />
@@ -179,8 +190,16 @@ export const Order = () => {
 									)}
 								</ListGroup.Item>
 							)}
-							
-							{/* Mark as delivered Placeholder */}
+							{loadingDeliver && <Loader />}
+							{userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+								<ListGroup.Item>
+								<Button 
+									type="button" 
+									className="btn bnt-block" 
+									onClick={deliverOrderHandler}
+								>Mark As Delivered</Button>
+								</ListGroup.Item>
+							)}
 						</ListGroup>
 					</Card>
 				</Col>
