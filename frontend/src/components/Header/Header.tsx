@@ -46,7 +46,7 @@ export const Header = () => {
 							</Link>
 							{userInfo? (
 								<NavDropdown title={userInfo.name} id='username'>
-									<NavDropdown.Item>
+									<NavDropdown.Item as='div'>
 										<Link to='/profile' style={{color: 'inherit', textDecoration: 'none'}}>Profile</Link>
 									</NavDropdown.Item>
 									<NavDropdown.Item onClick={logoutHandler}>
@@ -58,13 +58,13 @@ export const Header = () => {
 							)}
 							{ userInfo && userInfo.isAdmin && (
 								<NavDropdown title="Admin" id='adminmenu'>
-									<NavDropdown.Item>
+									<NavDropdown.Item  as='div'>
 										<Link to='/admin/productlist' style={{color: 'inherit', textDecoration: 'none'}}>Product</Link>
 									</NavDropdown.Item>
-									<NavDropdown.Item>
+									<NavDropdown.Item  as='div'>
 										<Link to='/admin/userlist' style={{color: 'inherit', textDecoration: 'none'}}>Users</Link>
 									</NavDropdown.Item>
-									<NavDropdown.Item>
+									<NavDropdown.Item  as='div'>
 										<Link to='/admin/orderlist' style={{color: 'inherit', textDecoration: 'none'}}>Orders</Link>
 									</NavDropdown.Item>
 								</NavDropdown>
