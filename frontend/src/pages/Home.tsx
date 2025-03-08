@@ -5,6 +5,7 @@ import Loader from "../components/Loader/Loader"
 import { Message } from "../components/Message/Message"
 import { Link, useParams } from "react-router"
 import Paginate from "../components/Paginate/Paginate"
+import { ProductCarousel } from "../components/ProductCarousel/ProductCarousel"
 
 export const Home = () => {
 	const { pageNumber, keyword } = useParams()
@@ -15,7 +16,7 @@ export const Home = () => {
 	if(error) return <Message variant="danger">{error?.data?.message || error.error}</Message>
 	return (
 		<>
-			{ keyword && <Link to='/' className="btn btn-light mb-4">Go Back</Link>}
+			{ !keyword ? <ProductCarousel /> : <Link to='/' className="btn btn-light mb-4">Go Back</Link>}
 			<h1>Latest Products</h1>
 			<Row>
 				{data.products.map(product => (
