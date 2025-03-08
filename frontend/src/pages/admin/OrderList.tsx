@@ -12,6 +12,7 @@ export const OrderList = () => {
 
 	return (
 		<>
+			<h1>Order List</h1>
 			<OrderTable orders={orders} />
 		</>
 	)
