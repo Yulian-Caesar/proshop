@@ -7,8 +7,8 @@ import { useParams } from "react-router"
 import Paginate from "../components/Paginate/Paginate"
 
 export const Home = () => {
-	const { pageNumber } = useParams()
-	const { data, isLoading, error } = useGetProductsQuery({ pageNumber });
+	const { pageNumber, keyword } = useParams()
+	const { data, isLoading, error } = useGetProductsQuery({ keyword, pageNumber });
 
 	if (isLoading) return <Loader />
 	//if(error) return <div>{{error?.data?.message || error.error}}</div>
@@ -23,7 +23,7 @@ export const Home = () => {
 					</Col>
 				))}
 			</Row>
-			<Paginate pages={data.pages} page={data.page} />
+			<Paginate pages={data.pages} page={data.page} keyword={keyword ? keyword : ''} />
 		</>
 	)
 }
