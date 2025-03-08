@@ -3,7 +3,7 @@ import { Product } from "../components/Product/Product"
 import { useGetProductsQuery } from "../slices/productsApiSlice"
 import Loader from "../components/Loader/Loader"
 import { Message } from "../components/Message/Message"
-import { useParams } from "react-router"
+import { Link, useParams } from "react-router"
 import Paginate from "../components/Paginate/Paginate"
 
 export const Home = () => {
@@ -15,6 +15,7 @@ export const Home = () => {
 	if(error) return <Message variant="danger">{error?.data?.message || error.error}</Message>
 	return (
 		<>
+			{ keyword && <Link to='/' className="btn btn-light mb-4">Go Back</Link>}
 			<h1>Latest Products</h1>
 			<Row>
 				{data.products.map(product => (
