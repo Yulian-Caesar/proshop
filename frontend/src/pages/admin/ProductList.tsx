@@ -1,13 +1,15 @@
 import { Button, Col, Row, Table } from "react-bootstrap"
 import Loader from "../../components/Loader/Loader"
-import { useCreateProductMutation, useGetProductsQuery } from "../../slices/productsApiSlice"
+import { useCreateProductMutation, useDeleteProductMutation, useGetProductsQuery } from "../../slices/productsApiSlice"
 import { FaEdit, FaTrash } from "react-icons/fa"
 import { Message } from "../../components/Message/Message"
 import { Link } from "react-router"
+import { toast } from "react-toastify"
 
 export const ProductList = () => {
 	const {data: products, isLoading, error, refetch} = useGetProductsQuery()
 	const [createProduct, { isLoading: loadingCreate }] = useCreateProductMutation()
+	const [deleteProduct, { isLoading: loadingDelete}] = useDeleteProductMutation()
 
 	const createProductHandler = async() => {
 		if(window.confirm("Are you sure you want to create a new product?")) {
@@ -20,8 +22,16 @@ export const ProductList = () => {
 		}
 	}
 
-	const deleteHandler = (productId: string) => {
-		console.log(productId)
+	const deleteHandler = async(productId: string) => {
+		if(window.confirm("Are you sure you want to delete that product?")) {
+			try {
+				await deleteProduct(productId)
+				toast.success("Product deleted successfully")
+				refetch()
+			} catch (err) {
+				toast.error(err?.data?.message || err.error)
+			}
+		}
 	}
 
 	return (
@@ -37,6 +47,7 @@ export const ProductList = () => {
 				</Col>
 			</Row>
 			{loadingCreate && <Loader />}
+			{loadingDelete && <Loader />}
 			{isLoading ? <Loader /> : error ? <Message variant="danger">{error}</Message> : (
 				<>
 					<Table striped hover responsive  className="table-sm">
