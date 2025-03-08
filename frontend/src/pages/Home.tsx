@@ -6,6 +6,7 @@ import { Message } from "../components/Message/Message"
 import { Link, useParams } from "react-router"
 import Paginate from "../components/Paginate/Paginate"
 import { ProductCarousel } from "../components/ProductCarousel/ProductCarousel"
+import { ProductType } from "../components/Product/Product.type"
 
 export const Home = () => {
 	const { pageNumber, keyword } = useParams()
@@ -19,7 +20,7 @@ export const Home = () => {
 			{ !keyword ? <ProductCarousel /> : <Link to='/' className="btn btn-light mb-4">Go Back</Link>}
 			<h1>Latest Products</h1>
 			<Row>
-				{data.products.map(product => (
+				{data.products.map((product: ProductType) => (
 					<Col key={product._id} sm={12} md={6} lg={4} xl={3}>
 						<Product product={product} />
 					</Col>

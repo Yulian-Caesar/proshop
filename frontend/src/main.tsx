@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
+import { HelmetProvider } from 'react-helmet-async'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import store from './store.tsx'
 //import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,7 +22,7 @@ import { Order as OrderPage } from './pages/Order.tsx';
 import { Profile as ProfilePage } from './pages/Profile.tsx'
 import { AdminRoute } from './components/AdminRoute/AdminRoute.tsx'
 import { OrderList as OrderListPage } from './pages/admin/OrderList.tsx'
-import { ProductList as ProductListPage } from './pages/admin/Productlist.tsx'
+import { ProductList as ProductListPage } from './pages/admin/ProductList.tsx'
 import { ProductEdit as ProductEditPage } from './pages/admin/ProductEdit.tsx'
 import { UserList as UserListPage } from './pages/admin/UserList.tsx'
 import { UserEdit as UserEditPage } from './pages/admin/UserEdit.tsx'
@@ -60,10 +61,12 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-	<Provider store={store}>
-		<PayPalScriptProvider deferLoading={true}>
-    		<RouterProvider router={router} />
-		</PayPalScriptProvider>
-	</Provider>
+	<HelmetProvider>
+		<Provider store={store}>
+			<PayPalScriptProvider deferLoading={true}>
+				<RouterProvider router={router} />
+			</PayPalScriptProvider>
+		</Provider>
+	</HelmetProvider>
   </StrictMode>,
 )

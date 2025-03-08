@@ -18,9 +18,9 @@ export const ProductEdit = () => {
 
 	const { productId } = useParams()
 	const navigate = useNavigate()
-	const { data: product, isLoading, error, refetch} = useGetProductDetailsQuery(productId)
+	const { data: product, isLoading, error} = useGetProductDetailsQuery(productId)
 	const [updateProduct, { isLoading: loadingUpdate}] = useUdpateProductMutation()
-	const [uploadProductImage, { isLoading: loadingImage }] = useUploadProductImageMutation()
+	const [uploadProductImage, { isLoading: loadingUploadImage}] = useUploadProductImageMutation()
 
 	useEffect(() => {
 		if(product) {
@@ -39,7 +39,7 @@ export const ProductEdit = () => {
 	if(isLoading) return <Loader />
 	if(error) return <Message variant='danger'>{error}</Message>
 
-	const updateProductHandler = async(e) => {
+	const updateProductHandler = async(e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const updatedProduct = {
 			_id: productId,
@@ -120,6 +120,7 @@ export const ProductEdit = () => {
 								onChange={uploadFileHandler}
 							></Form.Control>
 						</Form.Group>
+						{loadingUploadImage && <Loader />}
 
 						<Form.Group controlId='brand' className='my-2'>
 							<Form.Label>Brand</Form.Label>
