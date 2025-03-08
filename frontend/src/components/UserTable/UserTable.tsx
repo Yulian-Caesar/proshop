@@ -28,8 +28,8 @@ const UserTable = ({ users, deleteHandler }) => {
 							)}
 						</td>
 						<td>
-							<Link to={`admin/user/${user._id}/edit`}>
-								<Button className="btn-sm" variant="light">
+							<Link to={`/admin/user/${user._id}/edit`}>
+								<Button className="btn-sm mx-2" variant="light">
 									<FaEdit />
 								</Button>
 							</Link>
