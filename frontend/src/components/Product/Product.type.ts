@@ -9,4 +9,13 @@ export type ProductType = {
     countInStock: number,
     rating: number,
     numReviews: number,
+	reviews: ReviewType[]
+}
+
+type ReviewType = {
+	name: string,
+	comment: string,
+	rating: number,
+	user: string,
+	createdAt: string
 }

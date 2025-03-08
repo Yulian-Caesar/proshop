@@ -2,7 +2,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa"
 
 
 
-export const Rating = ({ value, text = ''}: {value: number, text: string}) => {
+export const Rating = ({ value, text = ''}: {value: number, text?: string}) => {
 
 	const renderStar = (index: number) => {
 		if (value >= index) return <FaStar />;
