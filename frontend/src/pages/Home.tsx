@@ -4,6 +4,7 @@ import { useGetProductsQuery } from "../slices/productsApiSlice"
 import Loader from "../components/Loader/Loader"
 import { Message } from "../components/Message/Message"
 import { useParams } from "react-router"
+import Paginate from "../components/Paginate/Paginate"
 
 export const Home = () => {
 	const { pageNumber } = useParams()
@@ -22,6 +23,7 @@ export const Home = () => {
 					</Col>
 				))}
 			</Row>
+			<Paginate pages={data.pages} page={data.page} />
 		</>
 	)
 }

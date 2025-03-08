@@ -3,11 +3,13 @@ import Loader from "../../components/Loader/Loader"
 import { useCreateProductMutation, useDeleteProductMutation, useGetProductsQuery } from "../../slices/productsApiSlice"
 import { FaEdit, FaTrash } from "react-icons/fa"
 import { Message } from "../../components/Message/Message"
-import { Link } from "react-router"
+import { Link, useParams } from "react-router"
 import { toast } from "react-toastify"
+import Paginate from "../../components/Paginate/Paginate"
 
 export const ProductList = () => {
-	const {data: products, isLoading, error, refetch} = useGetProductsQuery()
+	const { pageNumber } = useParams()
+	const {data: data, isLoading, error, refetch} = useGetProductsQuery({ pageNumber })
 	const [createProduct, { isLoading: loadingCreate }] = useCreateProductMutation()
 	const [deleteProduct, { isLoading: loadingDelete}] = useDeleteProductMutation()
 
@@ -62,7 +64,7 @@ export const ProductList = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{products.map((product) => (
+							{data.products.map((product) => (
 								<tr key={product._id}>
 									<td>{product._id}</td>
 									<td>{product.name}</td>
@@ -83,6 +85,7 @@ export const ProductList = () => {
 							))}
 						</tbody>
 					</Table>
+					<Paginate pages={data.pages} page={data.page} isAdmin={true} />
 				</>
 			)}
 		</>
