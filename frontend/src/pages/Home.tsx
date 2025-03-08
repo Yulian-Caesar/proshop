@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router"
 import Paginate from "../components/Paginate/Paginate"
 import { ProductCarousel } from "../components/ProductCarousel/ProductCarousel"
 import { ProductType } from "../components/Product/Product.type"
+import { Meta } from "../components/Meta/Meta"
 
 export const Home = () => {
 	const { pageNumber, keyword } = useParams()
@@ -18,6 +19,7 @@ export const Home = () => {
 	return (
 		<>
 			{ !keyword ? <ProductCarousel /> : <Link to='/' className="btn btn-light mb-4">Go Back</Link>}
+			<Meta title="Welcome to Proshop" />
 			<h1>Latest Products</h1>
 			<Row>
 				{data.products.map((product: ProductType) => (
