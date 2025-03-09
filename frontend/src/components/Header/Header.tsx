@@ -7,6 +7,7 @@ import { RootState } from '../../store';
 import { logout } from '../../slices/authSlice'
 import { useLogoutMutation } from '../../slices/usersApiSlice'
 import { SearchBox } from '../SearchBox/SearchBox'
+import { resetCart } from '../../slices/cartSlice'
 
 export const Header = () => {
 	const { cartItems } = useSelector((state: RootState) => state.cart)
@@ -20,6 +21,7 @@ export const Header = () => {
 		try {
 			await logoutApiCall().unwrap()
 			dispatch(logout())
+			dispatch(resetCart())
 			navigate('/auth')
 		} catch (err) {
 			console.log(err)
@@ -42,7 +44,7 @@ export const Header = () => {
 								<FaShoppingCart /> Cart
 								{cartItems.length > 0 && (
 									<Badge pill bg='success' style={{marginLeft: '5px'}}>
-										{cartItems.reduce((acc, item) => acc + +item.qty, 0)}
+										{cartItems.reduce((acc:number, item) => acc + +item.qty, 0)}
 									</Badge>
 								)}
 							</Link>
@@ -61,7 +63,7 @@ export const Header = () => {
 							{ userInfo && userInfo.isAdmin && (
 								<NavDropdown title="Admin" id='adminmenu'>
 									<NavDropdown.Item  as='div'>
-										<Link to='/admin/productlist' style={{color: 'inherit', textDecoration: 'none'}}>Product</Link>
+										<Link to='/admin/productlist' style={{color: 'inherit', textDecoration: 'none'}}>Products</Link>
 									</NavDropdown.Item>
 									<NavDropdown.Item  as='div'>
 										<Link to='/admin/userlist' style={{color: 'inherit', textDecoration: 'none'}}>Users</Link>

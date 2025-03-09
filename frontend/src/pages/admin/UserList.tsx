@@ -28,7 +28,7 @@ export const UserList = () => {
 			{isLoading ? (
 				<Loader />
 			) : error ? (
-				<Message variant="danger">{error}</Message>
+				<Message variant="danger">{error?.data?.message || error?.error}</Message>
 			) : (
 				<UserTable users={users} deleteHandler={deleteHandler} />
 			)}

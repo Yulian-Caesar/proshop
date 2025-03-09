@@ -84,7 +84,7 @@ export const Order = () => {
 	}
 
 	if(isLoading) return <Loader />
-	if(error) return <Message variant="danger">{error}</Message>
+	if(error) return <Message variant="danger">{error?.data?.message || error?.error}</Message>
 
 	return (
 		<>

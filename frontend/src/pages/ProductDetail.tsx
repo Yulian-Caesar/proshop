@@ -13,7 +13,7 @@ import { Meta } from "../components/Meta/Meta";
 
 
 export const ProductDetail = () => {
-	const { productId } = useParams();
+	const { id: productId } = useParams();
 	const [qty, setQty] = useState(1);
 	const [rating, setRating] = useState(0);
 	const [comment, setComment] = useState('');
@@ -51,7 +51,7 @@ export const ProductDetail = () => {
 	return (
 		<>
 			<Link to='/' className='btn btn-light my-3'>Go Back</Link>
-			{isLoading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+			{isLoading ? <Loader /> : error ? <Message variant='danger'>{error?.data?.message || error?.error}</Message> : (
 				<>
 					<Meta title={product.name} />
 					<Row>

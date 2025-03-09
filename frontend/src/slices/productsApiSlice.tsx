@@ -12,7 +12,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
 					keyword
 				}
 			}),
-			//providesTags: ['Products'],
+			providesTags: ['Product'],
 			keepUnusedDataFor: 5,
 		}),
 		getProductDetails: builder.query<ProductType, string>({
@@ -34,7 +34,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
 				method: 'PUT',
 				body: data 
 			}),
-			//invalidatesTags: ['Products']
+			invalidatesTags: ['Product']
 		}),
 		uploadProductImage: builder.mutation({
 			query: (data) => ({

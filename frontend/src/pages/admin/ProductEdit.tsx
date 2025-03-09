@@ -16,7 +16,7 @@ export const ProductEdit = () => {
 	const [countInStock, setCountInStock] = useState(0)
 	const [description, setDescription] = useState('')
 
-	const { productId } = useParams()
+	const { id: productId } = useParams()
 	const navigate = useNavigate()
 	const { data: product, isLoading, error} = useGetProductDetailsQuery(productId)
 	const [updateProduct, { isLoading: loadingUpdate}] = useUdpateProductMutation()
@@ -37,7 +37,7 @@ export const ProductEdit = () => {
 
 
 	if(isLoading) return <Loader />
-	if(error) return <Message variant='danger'>{error}</Message>
+	if(error) return <Message variant='danger'>{error?.data?.message || error?.error}</Message>
 
 	const updateProductHandler = async(e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -73,7 +73,7 @@ export const ProductEdit = () => {
 			toast.success(res.message)
 			setImage(res.image)
 		} catch (err) {
-			toast.error(err?.data?.message || err?.message)
+			toast.error(err?.data?.message || err?.message || 'Images only!')
 		}
 	}
 
@@ -86,7 +86,7 @@ export const ProductEdit = () => {
 				<h1>Edit Product</h1>
 				{loadingUpdate && <Loader />}
 
-				{isLoading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+				{isLoading ? <Loader /> : error ? <Message variant='danger'>{error?.data?.message || error?.error}</Message> : (
 					<Form onSubmit={updateProductHandler}>
 						<Form.Group controlId='name' className='my-2'>
 							<Form.Label>Name</Form.Label>

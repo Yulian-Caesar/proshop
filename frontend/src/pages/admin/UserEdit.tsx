@@ -27,9 +27,9 @@ export const UserEdit = () => {
 
 
 	if(isLoading) return <Loader />
-	if(error) return <Message variant='danger'>{error}</Message>
+	if(error) return <Message variant='danger'>{error?.data?.message || error?.error}</Message>
 
-	const updateProductHandler = async(e) => {
+	const updateProductHandler = async(e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		
 		
@@ -57,7 +57,7 @@ export const UserEdit = () => {
 				<h1>Edit User</h1>
 				{loadingUpdate && <Loader />}
 
-				{isLoading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+				{isLoading ? <Loader /> : error ? <Message variant='danger'>{error?.data?.message || error?.error}</Message> : (
 					<Form onSubmit={updateProductHandler}>
 						<Form.Group controlId='name' className='my-2'>
 							<Form.Label>Name</Form.Label>

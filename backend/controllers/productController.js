@@ -26,10 +26,10 @@ const getProducts = asyncHandler(async(req, res) => {
 })
 
 // @desc	Fetch single product
-// @route	GET /api/products/:productId
+// @route	GET /api/products/:id
 // @access	Public
 const getProductById = asyncHandler(async(req, res) => {
-	const product = await Product.findById(req.params.productId)
+	const product = await Product.findById(req.params.id)
 
 	if(product) {
 		 res.json(product);
@@ -62,12 +62,12 @@ const createProduct = asyncHandler(async(req, res) => {
 })
 
 // @desc	Update product
-// @route	PUT /api/products/:productId
+// @route	PUT /api/products/:id
 // @access	Private/Admin
 const updateProduct = asyncHandler(async(req, res) => {
 	const { name, price, description, image, brand, category, countInStock} = req.body;
 
-	const product = await Product.findById(req.params.productId)
+	const product = await Product.findById(req.params.id)
 
 	if(product) {
 		product.name = name;
@@ -87,11 +87,11 @@ const updateProduct = asyncHandler(async(req, res) => {
 })
 
 // @desc	Delete a product
-// @route	DELETE /api/products/:productId
+// @route	DELETE /api/products/:id
 // @access	Private/Admin
 const deleteProduct = asyncHandler(async(req, res) => {
 
-	const product = await Product.findById(req.params.productId)
+	const product = await Product.findById(req.params.id)
 
 	if(product) {
 		await Product.deleteOne({_id: product._id})
@@ -103,11 +103,11 @@ const deleteProduct = asyncHandler(async(req, res) => {
 })
 
 // @desc	Create a new review
-// @route	POST /api/products/:productId/reviews
+// @route	POST /api/products/:id/reviews
 // @access	Private
 const createProductReview = asyncHandler(async(req, res) => {
 	const { rating, comment } = req.body;
-	const product = await Product.findById(req.params.productId)
+	const product = await Product.findById(req.params.id)
 
 	if(product) {
 		const alreadyReviewed = product.reviews.find(review => review.user.toString() === req.user._id.toString())

@@ -9,7 +9,7 @@ import { ProductType } from "../Product/Product.type"
 export const ProductCarousel = () => {
 	const {data: products, isLoading, error} = useGetTopProductsQuery()
 
-	return isLoading ? <Loader /> : error ? <Message variant="danger">{error}</Message> : (
+	return isLoading ? <Loader /> : error ? <Message variant="danger">{error?.data?.message || error?.error}</Message> : (
 		<Carousel pause="hover" className="bg-primary mb-4">
 			{products.map((product: ProductType) => (
 				<Carousel.Item key={product._id}>
